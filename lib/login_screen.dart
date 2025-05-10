@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -18,11 +19,19 @@ class LoginScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Henüz hiçbir ekrana geçiş yok, çünkü home_screen eklenmedi
                 String username = _usernameController.text;
                 if (username.isNotEmpty) {
+                  // Kullanıcı adı boş değilse HomeScreen'e geçiş yapalım
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(username: username),
+                    ),
+                  );
+                } else {
+                  // Kullanıcı adı boş ise hata mesajı gösterelim
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Hoş geldin, $username')),
+                    SnackBar(content: Text('Kullanıcı adı boş olamaz')),
                   );
                 }
               },
